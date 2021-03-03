@@ -1,6 +1,17 @@
-<app-plateau *ngIf = " obs | async as G "
-             [board]    = "G.board"
-             [turn]     = "G.turn"
-             [playable] = "G.playable"
-             (play)     = "play($event)"
-></app-plateau>
+
+<section *ngIf = "obs | async as G">
+  <p *ngIf = "G.winner">Le vainqueur est {{G.winner}} !!!</p>
+  <pre>
+    (IA: <input type="checkbox" [(ngModel)]="ia1On" />) {{G.turn === 'Player1' ? '=>' : '  '}} <div class="Player1"></div> Player 1 : {{G.scores[0]}}
+    (IA: <input type="checkbox" [(ngModel)]="ia2On" />) {{G.turn === 'Player2' ? '=>' : '  '}} <div class="Player2"></div> Player 2 : {{G.scores[1]}}
+  </pre>
+  <button (click)="restart()">RESTART</button>
+
+  <app-plateau  [board]    = "G.board"
+                [turn]     = "G.turn"
+                [playable] = "G.playable"
+                (play)     = "play($event)"
+  ></app-plateau>
+
+</section>
+

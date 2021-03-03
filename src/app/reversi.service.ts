@@ -9,7 +9,7 @@ export class ReversiService {
   protected board!: Board; // LE suffixe ! indique à Typescript que board sera bien initialisé plus tard
   protected currentTurn: Turn = 'Player1';
   protected gameStateSubj: BehaviorSubject<GameState>;
-  protected winnerSubj = new BehaviorSubject<undefined | Turn>(undefined);
+  protected winnerSubj = new BehaviorSubject<undefined | 'DRAWN' | Turn>(undefined);
 
   public readonly gameStateObs: Observable<GameState>;
   public readonly winnerObs = this.winnerSubj.asObservable();
@@ -34,6 +34,8 @@ export class ReversiService {
           board: this.board,
           turn: this.currentTurn
       });
+
+      this.winnerSubj.next(undefined);
   }
 
   PionsTakenIfPlayAt(x: number, y: number): PlayImpact {
@@ -70,7 +72,14 @@ export class ReversiService {
           if (!this.canPlay()) {
               this.currentTurn = (this.currentTurn === 'Player1' ? 'Player2' : 'Player1');
               if (!this.canPlay()) {
-                  this.winnerSubj.next(this.currentTurn);
+                  this.winnerSubj.next(
+                    (() => {
+                      const scores = ['Player1', 'Player2'].map( p => this.board.reduce( (N, L) => N + L.reduce( (n, c) => c === p ? n + 1 : n, 0), 0) );
+                           if (scores[0]  >  scores[1]) { return 'Player1'; }
+                      else if (scores[0] === scores[1]) { return 'DRAWN';   }
+                      else {return 'Player2';}
+                    })()
+                  );
               }
           }
           this.gameStateSubj.next({

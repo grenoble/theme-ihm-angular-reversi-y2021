@@ -1,0 +1,18 @@
+$P: 16px;
+
+:host {
+
+  div.Player1, div.Player2 {
+    width: $P;
+    height: $P;
+    border: solid black 1px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+  }
+
+  div.Player1 {
+    background-color: black;
+  }
+}
