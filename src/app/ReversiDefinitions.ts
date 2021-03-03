@@ -12,7 +12,7 @@ export type Board_RO = readonly [R, R, R, R, R, R, R, R]; // Un plateau immuable
 export type TileCoords = readonly [x: number, y: number]; // Une coordonnée
 export type PlayImpact = readonly TileCoords[];           // Une liste de coordonnées
 
-export interface GameState {                              // Un état de jeu 
+export interface GameState {                              // Un état de jeu
     board: Board_RO;                                      // L'état du plateau
     turn: Turn;                                           // Le joueur pour qui c'est le tour de jouer
 }
@@ -22,4 +22,10 @@ export interface ReversiModelInterface {                  // Le modèle du jeu R
     play(i: number, j: number): void;                     // Joueur courant joue en <i, j>
 
     gameStateObs: Observable<GameState>;                  // Un observable de l'état courant du jeu
+}
+
+export function emptyBoard(): Board {
+    return new Array(8).fill(0).map(
+        () => new Array<C>(8).fill('Empty')
+     ) as Board;
 }

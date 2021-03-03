@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "l3m-reversi-angular-y2021"
+  "defaultProject": "l3m-reversi-angular-y2021",
+  "cli": {
+    "analytics": "497cfa33-cbd3-438f-9f9b-7bb6a01bdb6e"
+  }
 }
