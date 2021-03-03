@@ -1,0 +1,15 @@
+<p>Au tour de {{turn}}.</p>
+
+<table>
+  <tbody>
+    <tr   *ngFor = "let ligne of board; index as i; trackBy: trackByIndex">
+      <td *ngFor = "let case  of ligne; index as j; trackBy: trackByIndex"
+          [class] = "case"
+          [class.canPlay] = "playable[i][j]"
+          (click) = "PLAY(i, j)"
+          >
+        <div></div>
+      </td>
+    </tr>
+  </tbody>
+</table>

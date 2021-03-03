@@ -1,42 +1,6 @@
-<section>
-  Les étapes à suivre :
-  <ol>
-    <li>Ajouter une dépendance au service de jeu Reversi dans le composant racine (AppComponent).</li>
-    <li>Générez un composant plateau
-    <li>Placez-vous dans le répertoire du projet.</li>
-    <li>Générez le composant :<br/>
-      node ./node_modules/@angular/cli/bin/ng generate component plateau -c OnPush
-    </li>
-    <li>
-      Ce composant définit 3 attribut inputs (utiliser @Input() ) :
-      <ul>
-        <li>board, de type Board_RO</li>
-        <li>turn, de type Turn</li>
-        <li>playable, du type tableau de tableau de booléen => Un tableau de 8x8 qui indique où le joueur courant peut jouer.</li>
-        <li>Initialisez ces attributs avec des valeurs par défaut représentants un tableau vide sur lequel le joueur 1 ne peut jouer nulle part.</li>
-      </ul>
-    </li>
-    <li>
-      Il définit un attribut output :
-      play, qui émet un doublet de nombres (soit un tuple [number, number]) représentant les coordonnées de la case sur laquelle le joueur veut poser son pion.
-    </li>
-    <li>
-      Intégrez ce composant dans la vue du composant racine.
-    </li>
-    <li>
-      Codez la vue du composant : un tableau de 8 lignes et 8 colonnes. Reprenez le principe de la vue du reversi MVP :
-      <ol>
-        <li>Les cases du tableau contiennent une balise div si la case contient le pion d'un joueur.</li>
-        <li>Les cases contenant un pion du joueur 1 contiennent la classe CSS "Player1".</li>
-        <li>Les cases contenant un pion du joueur 2 contiennent la classe CSS "Player2".</li>
-        <li>Les cases sur lesquelles le joueur courant peut poser un pion contiennent la classe CSS "canPlay.</li>
-        <li>Vous pouvez réutiliser le code CSS du projet Reversi MVP et l'intégrer dans le code SCSS du composant Plateau.</li>
-        <li>Donner la possibilité au joueur de poser un pion sur les case du plateau (si il en a le droit).</li>
-        <li>Afficher aussi : à qui est-ce de jouer (avec le pion qui lui correspond) et le nombre totale de pions pour chaque joueur.</li>
-      </ol>
-    </li>
-  </ol>
-</section>
-
-<hr/>
-
+<app-plateau *ngIf = " obs | async as G "
+             [board]    = "G.board"
+             [turn]     = "G.turn"
+             [playable] = "G.playable"
+             (play)     = "play($event)"
+></app-plateau>
